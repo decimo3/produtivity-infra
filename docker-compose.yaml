@@ -1,0 +1,22 @@
+services:
+  web:
+    image: httpd:2.4
+    container_name: apache
+    ports:
+      - "8080:80"
+    volumes:
+      - ./frontend/public:/usr/local/apache2/htdocs
+    depends_on:
+      - dba
+  dba:
+    image: postgres:16.1
+    restart: always
+    environment:
+      POSTGRES_USER: usuario
+      POSTGRES_PASSWORD: palavra
+      POSTGRES_DB: produtividade
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+    ports:
+      - ""
+networks:
